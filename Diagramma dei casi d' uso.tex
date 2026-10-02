@@ -1,0 +1,51 @@
+\documentclass[a4paper,addpoints]{article}
+\usepackage{amsfonts,amssymb,amsmath, amsthm}
+\usepackage{xcolor}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepgfplotslibrary{fillbetween}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usepackage{tabu}
+
+\usepackage{tikz}
+\usetikzlibrary {shapes , arrows , fit , calc, positioning}
+\tikzset{box/.style={draw, rectangle, rounded corners, thick, node distance =7 em, text width =6 em, text centered, minimum height =2.5 em}}
+\tikzset{line/.style={draw, thick, -latex'}}
+
+\usepackage{tikz-uml}
+\tikzumlset{actor below=0.4cm, fill usecase=white, fill class=white, text=black, draw=black}
+
+
+\begin{document}
+
+
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{umlsystem}[x=4] {Sistema}
+        \umlusecase[x=1, width=1.8cm] {Registrazione}
+        \umlusecase[x=1, y=-1, width=1.8cm] {Ricerca utenti}
+        \umlusecase[x=1, y=-2, width=1.8cm] {Lista eventi}
+        \umlusecase[x=7, y=-2, width=1.8cm] {visdualizzare profili}
+        
+
+    \end{umlsystem}
+        
+    \umlactor{Utente non registrato} 
+    \umlactor[y=-4] {Utente registrato o loggato}  
+        
+    \umlassoc{usecase-1}{Utente non registrato}
+    \umlassoc{usecase-2}{Utente registrato o loggato}
+    \umlassoc{usecase-2}{Utente non registrato}
+    \umlassoc{usecase-3}{Utente non registrato}
+    \umlassoc{usecase-3}{Utente registrato o loggato}
+
+    \umlextend{usecase-3}{usecase-4}
+    \umlextend{usecase-2}{usecase-4}
+    
+\end{tikzpicture}
+\end{center}
+
+\end{document} 
