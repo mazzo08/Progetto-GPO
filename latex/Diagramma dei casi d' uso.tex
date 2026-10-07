@@ -25,25 +25,39 @@
 \begin{center}
 \begin{tikzpicture}
     \begin{umlsystem}[x=4] {Sistema}
-        \umlusecase[x=1, width=1.8cm] {Registrazione}
-        \umlusecase[x=1, y=-1, width=1.8cm] {Ricerca utenti}
-        \umlusecase[x=1, y=-2, width=1.8cm] {Lista eventi}
-        \umlusecase[x=7, y=-2, width=1.8cm] {visdualizzare profili}
-        
+        \umlusecase[x=1, width=1.8cm] {Registrazione} %1
+        \umlusecase[x=1, y=-1.80, width=1.8cm] {Ricerca utenti}
+        \umlusecase[x=1, y=-3.5, width=1.8cm] {Lista eventi}  %3      
+        \umlusecase[x=7, y=-4, width=1.8cm] {visualizzare profili} 
+        \umlusecase[x=1, y=-6, width=1.8cm]{Accesso} %5
+        \umlusecase[x=7, y=-8, width=1.8cm]{Agg/Mod/Elim eventi}
+        \umlusecase[x=7, y=-10, width=1.8cm]{Visualizzare dettagli} 
+        \umlusecase[x=7, y=-12, width=1.8cm]{Chat privata} %8
+        \umlusecase[x=7, y=-14, width=1.8cm]{Biglietti}
+        \umlusecase[x=7, y=-16, width=1.8cm]{Notifiche} %10
 
     \end{umlsystem}
         
     \umlactor{Utente non registrato} 
-    \umlactor[y=-4] {Utente registrato o loggato}  
+    \umlactor[y=-4] {Utente loggato}  
         
     \umlassoc{usecase-1}{Utente non registrato}
-    \umlassoc{usecase-2}{Utente registrato o loggato}
+    \umlassoc{usecase-2}{Utente loggato}
     \umlassoc{usecase-2}{Utente non registrato}
     \umlassoc{usecase-3}{Utente non registrato}
-    \umlassoc{usecase-3}{Utente registrato o loggato}
+    \umlassoc{usecase-3}{Utente loggato}
+    \umlassoc{usecase-5}{Utente loggato}
+    \umlassoc{usecase-4}{Utente loggato}
+    
 
     \umlextend{usecase-3}{usecase-4}
     \umlextend{usecase-2}{usecase-4}
+    \umlextend{usecase-5}{usecase-7}
+    \umlextend{usecase-5}{usecase-10}
+    \umlextend{usecase-5}{usecase-9}
+    \umlextend{usecase-5}{usecase-6}
+    \umlextend{usecase-5}{usecase-8}
+    
     
 \end{tikzpicture}
 \end{center}
