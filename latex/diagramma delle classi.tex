@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usetikzlibrary{positioning, arrows.meta, shapes}
+
+\begin{document}
+
+\begin{center}
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}
+
+    \umlclass[x=0, y=0, type=abstract]{Utente}{
+        - id : int \\
+        - nome : String
+    }{
+        \umlvirt{+ registra() : boolean} \\
+        + cercaUtenti() : List<Utente> \\
+        + visualizzaListaEventi() : List<Evento>
+    }
+
+    \umlclass[x=9, y=0]{Profilo}{
+        - biografia : String \\
+        - fotoUrl : String
+    }{
+        + visualizzaProfilo() : void
+    }
+
+    \umlclass[x=0, y=-6]{UtenteRegistrato}{
+        - email : String \\
+        - password : String \\
+        - tokenSessione : String
+    }{
+        + login() : boolean \\
+        + logout() : void
+    }
+
+    \umlclass[x=9, y=-6]{Evento}{
+        - idEvento : int \\
+        - titolo : String \\
+        - data : Date \\
+        - descrizione : String
+    }{
+        + aggiungiEvento() : boolean \\
+        + modificaEvento() : boolean \\
+        + eliminaEvento() : boolean \\
+        + visualizzaDettagli() : Evento
+    }
+
+    \umlclass[x=-5, y=-12]{Chat}{
+        - idChat : int \\
+        - messaggi : List<String>
+    }{
+        + inviaMessaggio() : void \\
+        + leggiChat() : void
+    }
+
+    \umlclass[x=1, y=-12]{Notifica}{
+        - idNotifica : int \\
+        - testo : String \\
+        - letta : boolean
+    }{
+        + invia() : void \\
+        + segnaComeLetta() : void
+    }
+
+    \umlclass[x=9, y=-12]{Biglietto}{
+        - idBiglietto : int \\
+        - prezzo : float \\
+        - codiceQR : String
+    }{
+        + acquista() : boolean \\
+        + annulla() : boolean
+    }
+
+ 
+
+    \umlinherit{UtenteRegistrato}{Utente}
+
+ 
+    \umlcompo[mult1=1, mult2=1, assoc-name=possiede, name=comp-profilo]{Utente}{Profilo}
+
+
+    \umlassoc[mult1=1, mult2=*, assoc-name=gestisce, name=ass-evento]{UtenteRegistrato}{Evento}
+    \umlassoc[mult1=1, mult2=*, assoc-name=usa, name=ass-chat]{UtenteRegistrato}{Chat}
+    \umlassoc[mult1=1, mult2=*, assoc-name=riceve, name=ass-notifica]{UtenteRegistrato}{Notifica}
+    \umlassoc[mult1=1, mult2=*, assoc-name=acquista, name=ass-biglietto]{UtenteRegistrato}{Biglietto}
+
+    \umlassoc[mult1=*, mult2=1, assoc-name=riferito a, name=ass-bigl-evento]{Biglietto}{Evento}
+
+\end{tikzpicture}
+}
+\end{center}
+
+\end{document}
