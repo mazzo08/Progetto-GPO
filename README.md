@@ -1,5 +1,12 @@
 # Progetto-GPO
 
+Social che permette agli utenti di vedere i volantini e gli annunci relativi ad eventi, con la possibilità di filtrarli in base a categoria e a luogo	Le informazioni sugli eventi sono spesso sparse e difficili da trovare.
+L’app vuole raccoglierle in un unico spazio, permettendo agli utenti di cercarle facilmente per categoria e luogo	Chiunque abbia voglia di scoprire eventi che incontrino i suoi gusti	eventbrite,
+
+-concorrenti:meetup, facebook events
+
+-tecnologie utilizzate:c#
+
  Funzionalità Principali
 
 • Catalogo Eventi: Una bacheca digitale completa e navigabile dove esplorare tutti i volantini attivi, ordinati per popolarità, data o vicinanza.
