@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage[a4paper,landscape,margin=1.5cm]{geometry}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, shapes.multipart}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+\begin{adjustbox}{max width=\textwidth, max totalheight=\textheight}
+\begin{tikzpicture}[
+    entita/.style={rectangle split, rectangle split parts=2, draw, thick,
+                   text width=3.6cm, align=left, font=\small, inner sep=4pt},
+    relaz/.style={diamond, draw, thick, aspect=2, align=center,
+                  font=\small, inner sep=2pt},
+    card/.style={fill=white, inner sep=1.5pt, font=\scriptsize}
+]
+
+% ---------- ENTITA' (sottolineato = chiave primaria artificiale) ----------
+\node[entita] (reg) at (-10,0)
+    {\textbf{UTENTE\_REGISTRATO} \nodepart{second}
+     email \\ password \\ tokenSessione};
+
+\node[entita] (gestore) at (14,0)
+    {\textbf{GESTORE\_EVENTO} \nodepart{second}
+     \underline{idGestore} \\ password};
+
+\node[entita] (utente) at (0,-3.5)
+    {\textbf{UTENTE} \nodepart{second}
+     \underline{idUtente} \\ nome};
+
+\node[entita] (profilo) at (9,-3.5)
+    {\textbf{PROFILO} \nodepart{second}
+     \underline{idProfilo} \\ biografia \\ fotoUrl};
+
+\node[entita] (evento) at (0,-10)
+    {\textbf{EVENTO} \nodepart{second}
+     \underline{idEvento} \\ titolo \\ data \\ descrizione};
+
+\node[entita] (notifica) at (-10,-10)
+    {\textbf{NOTIFICA} \nodepart{second}
+     \underline{idNotifica} \\ testo \\ letta};
+
+\node[entita] (biglietto) at (-6,-5)
+    {\textbf{BIGLIETTO} \nodepart{second}
+     \underline{idBiglietto} \\ prezzo \\ codiceQR};
+
+\node[entita] (chat) at (2,4)
+    {\textbf{CHAT} \nodepart{second}
+     \underline{idChat} \\ messaggi};
+
+% ---------- RELAZIONI ----------
+\node[regular polygon, regular polygon sides=3, shape border rotate=180, draw, thick, minimum size=1.3cm, inner sep=0pt, font=\scriptsize] (r-isa) at (0,-0.325) {ISA};
+\node[relaz] (r-possiede)   at (4.8,-3.5)   {possiede};
+\node[relaz] (r-visualizza) at (0,-6.5)     {visualizza};
+\node[relaz] (r-gestisce)   at (13,-9)      {gestisce};
+\node[relaz] (r-riceve)     at (-10,-5)     {riceve};
+\node[relaz] (r-riguarda)   at (-5,-10)     {riguarda};
+\node[relaz] (r-acquista)   at (-7.5,-2.3)  {acquista};
+\node[relaz] (r-riferito)   at (-3.5,-8)    {riferito\\a};
+\node[relaz] (r-partecipa1) at (-10,4)    {partecipa\\a};
+\node[relaz] (r-partecipa2) at (14,4)    {partecipa\\a};
+
+% ---------- COLLEGAMENTI CON CARDINALITA' ----------
+% Ogni etichetta (min,max) e' vicina all'entita' a cui si riferisce
+
+% Generalizzazione: UTENTE si specializza in UTENTE_REGISTRATO e GESTORE_EVENTO
+% il lato superiore del triangolo e' allineato alle linee verso i figli, l'apice punta al padre
+\draw[thick] (utente.north) -- (r-isa.corner 1);
+\draw[thick] (reg.east) -- (r-isa.corner 3);
+\draw[thick] (r-isa.corner 2) -- (gestore.west);
+
+\draw[thick] (utente) -- node[card,pos=.3]{(1,1)} (r-possiede)
+                      -- node[card,pos=.7]{(1,1)} (profilo);
+
+\draw[thick] (utente) -- node[card,pos=.3]{(0,N)} (r-visualizza)
+                      -- node[card,pos=.7]{(0,N)} (evento);
+
+\draw[thick] (gestore) -- node[card,pos=.3]{(0,N)} (r-gestisce)
+                       -- node[card,pos=.7]{(1,1)} (evento);
+
+\draw[thick] (reg) -- node[card,pos=.3]{(0,N)} (r-riceve)
+                   -- node[card,pos=.7]{(1,1)} (notifica);
+
+\draw[thick] (notifica) -- node[card,pos=.3]{(0,1)} (r-riguarda)
+                        -- node[card,pos=.7]{(0,N)} (evento);
+
+\draw[thick] (reg) -- node[card,pos=.3]{(0,N)} (r-acquista)
+                   -- node[card,pos=.7]{(1,1)} (biglietto);
+
+\draw[thick] (biglietto) -- node[card,pos=.3]{(1,1)} (r-riferito)
+                         -- node[card,pos=.7]{(0,N)} (evento);
+
+\draw[thick] (reg) -- node[card,pos=.3]{(0,N)} (r-partecipa1)
+                   -- node[card,pos=.7]{(1,N)} (chat);
+
+\draw[thick] (gestore) -- node[card,pos=.3]{(0,N)} (r-partecipa2)
+                       -- node[card,pos=.7]{(1,N)} (chat);
+
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\end{document}
