@@ -8,6 +8,9 @@
 \usepackage{tikz-uml}
 \usetikzlibrary{positioning, arrows.meta, shapes}
 
+% Rimuove il colore giallo predefinito di tikz-uml: classi con sfondo bianco
+\tikzumlset{fill class=white}
+
 \pagestyle{empty}
 
 \begin{document}
@@ -45,7 +48,7 @@
         + visualizzaDettagli() : Evento
     }
 
-   
+
     \umlclass[x=-9, y=-6]{Ospite}{}{
         + registra() : UtenteRegistrato
     }
